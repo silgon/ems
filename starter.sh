@@ -1,3 +1,10 @@
+#!/usr/bin/env bash
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
 # Function to install a package using the appropriate package manager
 install_package() {
     PACKAGE=$1

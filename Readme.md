@@ -4,7 +4,7 @@ This is a small script I decided to make because I needed some emojis (also beca
 ## Installation
 
 ```bash
-bash <(curl -s https://github.com/silgon/ems/raw/main/starter.sh)
+bash <(curl -s -L https://github.com/silgon/ems/raw/main/starter.sh)
 ```
 
 The dependencies are `jq` and `xclip`. The script will try to install them if possible.
