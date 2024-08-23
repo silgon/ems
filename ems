@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+EMOJI_FILE=~/.emojis.txt
+function download(){
+    curl https://raw.githubusercontent.com/muan/emojilib/v3.0.12/dist/emoji-en-US.json \
+        | jq --raw-output '. | to_entries | .[] | .key + " " + (.value | join(" ") | sub("_"; " "; "g"))' \
+             > $EMOJI_FILE
+}
+function f(){
+    if [ ! -e "$EMOJI_FILE" ]; then
+        $(download)
+    fi
+	cat $EMOJI_FILE | awk "/($1)/ {print \$1}"
+}
+
+if [[ "$1" == "-u" ]]; then
+    echo "updating or downloading files"
+    download
+else
+    elements=$(f $1)
+    elements+=("exit")
+    select i in ${elements[@]}; do
+        if [ $i == "exit" ]; then break; fi
+        echo -n $i|xclip -selection clipboard; echo "$i copied to clipboard";
+        break;
+    done
+fi
